@@ -13,17 +13,27 @@ class UsersRepository {
     }
   }
   async getAll() {
-    const contents = await fs.promises.readFile(this.filename, {
-      encoding: "utf8"
-    });
-    console.log(contents);
+    return JSON.parse(
+      await fs.promises.readFile(this.filename, {
+        encoding: "utf8"
+      })
+    );
+  }
+  async create(attrs) {
+    const records = await this.getAll();
+    records.push(attrs);
+    // write the updated records array back to this.filename
+    await fs.promises.writeFile(this.filename, JSON.stringify(records));
   }
 }
 
 const test = async () => {
   const repo = new UsersRepository("usres.json");
+  await repo.create({ email: "test@test.come", password: "test123" });
 
-  await repo.getAll();
+  const users = await repo.getAll();
+
+  console.log(users);
 };
 
 test();
