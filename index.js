@@ -4,13 +4,26 @@ const app = express();
 app.get("/", (req, res) => {
   res.send(`
   <div>
-  <form>
-  <input palceholder="email">
-   <input palceholder="password">
-    <input palceholder="password confirmation">
+  <form method="POST">
+  <input name="email" palceholder="email">
+   <input name="password" palceholder="password">
+    <input name="passwordConfirmation" palceholder="passwordConfirmation">
     <button>sign up</button>
    </form>
   </div>`);
+});
+
+app.post("/", (req, res) => {
+  req.on("data", data => {
+    const parsed = data.toString("utf8").split("&");
+    const formData = {};
+    for (let pair of parsed) {
+      const [key, value] = pair.split("=");
+      formData[key] = value;
+    }
+    console.log(formData);
+  });
+  res.send("Account created");
 });
 
 app.listen(3000, () => {
