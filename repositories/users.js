@@ -41,6 +41,11 @@ class UsersRepository {
     const records = await this.getAll();
     return records.find(record => record.id === id);
   }
+  async delete(id) {
+    const records = await this.getAll();
+    const filteredRecords = records.filter(record => record.id !== id);
+    await this.writeAll(filteredRecords);
+  }
 }
 
 const test = async () => {
@@ -49,9 +54,11 @@ const test = async () => {
 
   // const users = await repo.getAll();
 
-  const user = await repo.getOne("e5967198");
+  // const user = await repo.getOne("e5967198");
 
-  console.log(user);
+  // console.log(user);
+
+  await repo.delete("a334fe15");
 };
 
 test();
