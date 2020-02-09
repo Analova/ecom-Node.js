@@ -14,10 +14,12 @@ body {
 .navbar ul.social {
   display: flex;
 }
+
 .navbar ul.social li {
   margin-right: 20px;
   text-decoration: none;
 }
+
 .navbar ul.social li a {
   color: var(--white);
 }
@@ -66,12 +68,13 @@ body {
 .product-card .card-footer {
   justify-content: center;
 }
+
 .product-card .card-footer form {
   display: block;
   width: 100%;
 }
 
-.admin > div.container {
+.admin>div.container {
   margin: 40px 10%;
 }
 
@@ -88,6 +91,7 @@ body {
 .admin table th:first-of-type {
   width: 50%;
 }
+
 .admin table td:first-of-type {
   width: 50%;
 }
