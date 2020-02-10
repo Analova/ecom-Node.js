@@ -21,18 +21,12 @@ router.post(
   "/signup",
   [requireEmail, requirePassword, requirePasswordConfirmation],
   handleErrors(signupTemplate),
-
   async (req, res) => {
     const { email, password } = req.body;
+    const user = await usersRepo.create({ email, password });
 
-    // Create a user in our user repo to represent this person
-    const user = await usersRepo.create({
-      email,
-      password
-    });
-    // Store the id of that user inside the users cookie
     req.session.userId = user.id;
-    res.send("Account created");
+    res.redirect("/admin/products");
   }
 );
 
@@ -56,7 +50,7 @@ router.post(
 
     req.session.userId = user.id;
 
-    res.send("You are signed in!");
+    res.redirect("/admin/products");
   }
 );
 
