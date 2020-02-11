@@ -26,11 +26,11 @@ router.post(
   upload.single("image"),
   [requireTitle, requirePrice],
   handleErrors(productsNewTemplate),
-
   async (req, res) => {
     const image = req.file.buffer.toString("base64");
     const { title, price } = req.body;
     await productsRepo.create({ title, price, image });
+
     res.redirect("/admin/products");
   }
 );
@@ -68,4 +68,10 @@ router.post(
     res.redirect("/admin/products");
   }
 );
+
+router.post("/admin/products/:id/delete", requireAuth, async (req, res) => {
+  await productsRepo.delete(req.params.id);
+
+  res.redirect("/admin/products");
+});
 module.exports = router;
